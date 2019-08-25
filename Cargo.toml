@@ -10,6 +10,7 @@ edition = "2018"
 proc-macro = true
 
 [dependencies]
+dao4j={ path = "../dao4j" }
 syn = "0.14.4"
 quote = "0.6.3"
 proc-macro2 = "0.4.30"
