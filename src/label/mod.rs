@@ -41,12 +41,13 @@ pub fn impl_label_macro(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
         .into_iter()
         .map(|f| { f.unwrap().to_string() })
         .collect();
+    let keys_len = keys.len();
     let values: Vec<Option<Ident>> = fields.clone();
 
     let output: proc_macro::TokenStream = quote! {
         impl Label for #name {
-            fn to_string(&self) -> String {
-                let mut result = Vec::new();
+            fn to_query_string(&self) -> String {
+                let mut result = Vec::with_capacity(#keys_len);
                 #( result.push(format!("{}: {}", &#keys, self.#values)); )*
 
                 format!(
